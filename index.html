@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WAKE ハイクラスアカデミー | AI時代の上流人材育成プログラム</title>
+  <style>
+    :root {
+      --blue:       #29B6F6;
+      --blue-light: #7DD8F8;
+      --blue-pale:  #E8F7FE;
+      --blue-bg:    #F0FAFF;
+      --navy:       #0D2356;
+      --navy-mid:   #1A3A6B;
+      --white:      #FFFFFF;
+      --gray-bg:    #F7F9FC;
+      --gray-text:  #5A6480;
+      --gray-border:#DDE4EF;
+      --gold:       #F0A500;
+      --pink:       #7B5EA7;
+      --radius:     14px;
+      --shadow-sm:  0 2px 12px rgba(13,35,86,.07);
+      --shadow:     0 4px 28px rgba(13,35,86,.10);
+      --shadow-lg:  0 8px 40px rgba(13,35,86,.14);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Hiragino Kaku Gothic ProN','Hiragino Sans',Meiryo,sans-serif; color: var(--navy); line-height: 1.7; background: #fff; }
+
+    /* ========== HEADER ========== */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(255,255,255,.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-border);
+      padding: 0 32px; height: 68px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.05rem; color: var(--navy); text-decoration: none; }
+    .logo-icon { width: 34px; height: 34px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo-badge { background: var(--blue); color: #fff; font-size: .62rem; padding: 2px 8px; border-radius: 20px; font-weight: 700; letter-spacing: .05em; }
+    .header-nav { display: flex; gap: 10px; align-items: center; }
+    .btn-nav-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--gray-border); border-radius: 24px; padding: 9px 20px; font-size: .84rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: .2s; }
+    .btn-nav-ghost:hover { border-color: var(--blue); color: var(--blue); }
+    .btn-nav-fill { background: var(--navy); color: #fff; border: none; border-radius: 24px; padding: 10px 22px; font-size: .84rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: .2s; white-space: nowrap; }
+    .btn-nav-fill:hover { background: var(--navy-mid); transform: translateY(-1px); }
+
+    /* ========== LAYOUT ========== */
+    section { padding: 88px 24px; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .section-eyebrow { display: inline-block; color: var(--blue); font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 900; color: var(--navy); line-height: 1.38; margin-bottom: 12px; }
+    .section-title em { color: var(--blue); font-style: normal; }
+    .section-lead { color: var(--gray-text); font-size: .97rem; line-height: 1.9; max-width: 640px; }
+    .bar { width: 44px; height: 4px; background: linear-gradient(90deg, var(--blue), var(--navy)); border-radius: 2px; margin: 12px 0 28px; }
+    .bar.center { margin: 12px auto 28px; }
+    .tc { text-align: center; }
+    .tc .section-lead { margin: 0 auto; }
+
+    /* ========== BUTTONS ========== */
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--navy); color: #fff; border: none; border-radius: 50px; padding: 18px 40px; font-size: 1rem; font-weight: 800; cursor: pointer; text-decoration: none; transition: .25s; box-shadow: 0 4px 20px rgba(13,35,86,.22); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(13,35,86,.3); }
+    .btn-blue { background: var(--blue); color: #fff; box-shadow: 0 4px 20px rgba(41,182,246,.35); }
+    .btn-blue:hover { background: #1da8e2; box-shadow: 0 8px 28px rgba(41,182,246,.45); }
+    .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); border-radius: 50px; padding: 16px 36px; font-size: .97rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: .25s; }
+    .btn-outline:hover { background: var(--blue-pale); border-color: var(--blue); color: var(--blue); }
+    .btn-pink { background: var(--pink); color: #fff; box-shadow: 0 4px 18px rgba(240,98,146,.3); }
+    .btn-pink:hover { background: #d8507c; box-shadow: 0 8px 24px rgba(240,98,146,.4); }
+
+    /* ========== PHOTO PLACEHOLDER ========== */
+    .photo-block {
+      background: var(--blue-pale);
+      border: 2px dashed var(--blue-light);
+      border-radius: var(--radius);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; color: var(--blue); font-size: .85rem; font-weight: 600;
+      letter-spacing: .04em;
+    }
+    .photo-block svg { opacity: .5; }
+    .photo-block span { opacity: .7; }
+    /* icon placeholders */
+    .icon-ph {
+      background: var(--blue-pale);
+      border: 2px dashed var(--blue-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--blue); font-size: .72rem; font-weight: 700;
+      letter-spacing: .03em; flex-shrink: 0;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      margin-top: 68px; background: #fff;
+      min-height: calc(100vh - 68px); padding: 60px 24px 40px;
+      display: flex; align-items: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 55%;
+      background: var(--blue-bg); border-radius: 0 0 0 80px; z-index: 0;
+    }
+    .hero-inner { max-width: 1080px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-pale); color: var(--blue); font-size: .75rem; font-weight: 800; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--blue-light); margin-bottom: 22px; letter-spacing: .06em; }
+    .hero h1 { font-size: clamp(1.6rem, 3.2vw, 2.5rem); font-weight: 900; color: var(--navy); line-height: 1.38; margin-bottom: 22px; }
+    .hero h1 em { color: var(--blue); font-style: normal; }
+    .hero-sub { font-size: 1rem; color: var(--gray-text); line-height: 1.9; margin-bottom: 16px; }
+    .hero-sub strong { color: var(--navy); }
+    .hero-sub-note { font-size: .84rem; color: var(--gray-text); line-height: 1.8; margin-bottom: 36px; padding: 12px 16px; background: var(--blue-pale); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; }
+    .hero-actions { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .hero-actions .btn-primary { font-size: 1.05rem; }
+    .hero-visual { position: relative; }
+    .hero-main-photo { width: 100%; aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .hero-main-photo .photo-block { width: 100%; height: 100%; border-radius: 20px; border: none; background: linear-gradient(135deg, var(--blue-pale) 0%, #d8f0fb 100%); }
+    .hero-photo-sub { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .hero-photo-sub .photo-block { aspect-ratio: 3/2; border-radius: 12px; }
+    .hero-float-badge { position: absolute; bottom: 160px; left: -28px; background: #fff; border-radius: 14px; padding: 14px 18px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; min-width: 180px; }
+    .hero-float-badge .hf-icon { width: 40px; height: 40px; background: var(--blue-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .hero-float-badge .hf-label { font-size: .72rem; color: var(--gray-text); }
+    .hero-float-badge .hf-val { font-size: .95rem; font-weight: 900; color: var(--navy); }
+    .hero-float-badge2 { position: absolute; top: 20px; right: -20px; background: var(--navy); border-radius: 14px; padding: 12px 16px; box-shadow: var(--shadow-lg); color: #fff; font-size: .82rem; font-weight: 700; }
+    .hero-float-badge2 span { color: var(--blue-light); }
+    .scroll-hint { position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--gray-text); font-size: .68rem; letter-spacing: .12em; z-index: 1; }
+    .scroll-dot { width: 6px; height: 6px; background: var(--blue); border-radius: 50%; animation: scrollpulse 1.5s infinite; }
+    @keyframes scrollpulse { 0%,100%{opacity:.3;transform:translateY(0)} 50%{opacity:1;transform:translateY(5px)} }
+
+    /* ========== PROBLEM ========== */
+    .problem-wrap { background: var(--gray-bg); }
+    .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 44px; }
+    .problem-card { background: #fff; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1.5px solid var(--gray-border); transition: .22s; display: flex; gap: 0; flex-direction: column; }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--blue-light); }
+    .problem-card .p-photo { aspect-ratio: 16/7; overflow: hidden; }
+    .problem-card .p-photo .photo-block { width: 100%; height: 100%; border-radius: 0; border: none; background: linear-gradient(135deg, var(--blue-pale), #c8eaf9); font-size: .78rem; }
+    .problem-card .p-body { padding: 20px 22px 22px; }
+    .problem-card strong { display: block; font-size: .95rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .problem-card p { font-size: .87rem; color: var(--gray-text); line-height: 1.7; }
+    @media (max-width: 600px) { .problem-grid { grid-template-columns: 1fr; } }
+
+    /* ========== FOR WHO ========== */
+    .for-who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; margin-top: 44px; }
+    .fw-card { background: #fff; border: 1.5px solid var(--gray-border); border-radius: var(--radius); padding: 28px 24px; transition: .22s; display: flex; flex-direction: column; gap: 16px; }
+    .fw-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .fw-card .fw-icon-wrap { display: flex; align-items: center; gap: 14px; }
+    .fw-card .fw-icon-wrap .icon-ph { width: 56px; height: 56px; font-size: .65rem; }
+    .fw-card-label { font-size: .72rem; color: var(--blue); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .fw-card p { font-size: .92rem; color: var(--gray-text); line-height: 1.75; }
+    .fw-card p strong { color: var(--navy); }
+
+    /* ========== WHY NOW ========== */
+    .why-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .why-photo { aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+    .why-photo .photo-block { width: 100%; height: 100%; border-radius: 20px; border: none; background: linear-gradient(135deg, var(--blue-pale), #c8eaf9); }
+    .why-points { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+    .why-point { display: flex; gap: 16px; align-items: flex-start; }
+    .why-point-num { width: 38px; height: 38px; background: var(--navy); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .85rem; flex-shrink: 0; }
+    .why-point-body strong { display: block; font-size: .97rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .why-point-body p { font-size: .87rem; color: var(--gray-text); line-height: 1.7; }
+
+    /* ========== MISSION ========== */
+    .mission-wrap { background: var(--blue-bg); }
+    .mission-inner { max-width: 1080px; margin: 0 auto; }
+    .mission-top { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; margin-bottom: 56px; }
+    .mission-text p { font-size: 1.02rem; color: #1E2A45; line-height: 2.1; margin-bottom: 24px; }
+    .mission-text p:last-child { margin-bottom: 0; }
+    .mission-photo { aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .mission-photo .photo-block { width: 100%; height: 100%; border-radius: 20px; border: none; background: linear-gradient(160deg, var(--blue-pale), #c8eaf9); }
+    .mission-quote-block { background: var(--navy); border-radius: 20px; padding: 44px 48px; text-align: center; margin-bottom: 44px; }
+    .mission-quote-block .mq { font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 900; color: #fff; line-height: 1.6; margin-bottom: 0; }
+    .mission-quote-block .mq em { color: var(--blue-light); font-style: normal; }
+    .mission-photo-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 44px; }
+    .mission-photo-row .photo-block { aspect-ratio: 4/3; border-radius: 14px; border: none; background: linear-gradient(135deg, var(--blue-pale), #c8eaf9); }
+    .mission-photo-row .photo-block:nth-child(2) { background: linear-gradient(135deg, #e8f7fe, #b8e5f5); }
+    .mission-photo-row .photo-block:nth-child(3) { background: linear-gradient(135deg, #d8f0fb, var(--blue-pale)); }
+    .mission-classes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .mc-card { background: #fff; border-radius: var(--radius); padding: 30px 28px; box-shadow: var(--shadow-sm); border: 1.5px solid var(--gray-border); }
+    .mc-card h4 { font-size: 1rem; font-weight: 900; color: var(--navy); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .mc-card p { font-size: .9rem; color: var(--gray-text); line-height: 1.8; }
+    .badge-women { background: #7B5EA7; color: #fff; font-size: .7rem; padding: 3px 10px; border-radius: 20px; font-weight: 700; }
+    .badge-all   { background: var(--blue); color: #fff; font-size: .7rem; padding: 3px 10px; border-radius: 20px; font-weight: 700; }
+
+    /* ========== SESSIONS ========== */
+    .sessions-wrap { background: #fff; }
+    .sessions-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; }
+    .s-meta-item { display: flex; align-items: center; gap: 8px; background: var(--blue-pale); border-radius: 8px; padding: 10px 16px; font-size: .86rem; font-weight: 700; color: var(--navy); }
+    .s-meta-item svg { color: var(--blue); }
+    .sessions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 18px; }
+    .s-card { background: #fff; border: 1.5px solid var(--gray-border); border-radius: var(--radius); padding: 24px 22px; transition: .22s; position: relative; overflow: hidden; }
+    .s-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .s-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--navy)); }
+    .s-num { font-size: .72rem; font-weight: 800; letter-spacing: .1em; color: var(--blue); margin-bottom: 6px; }
+    .s-title { font-size: .97rem; font-weight: 900; color: var(--navy); line-height: 1.45; margin-bottom: 12px; }
+    .s-items { list-style: none; }
+    .s-items li { font-size: .86rem; color: var(--gray-text); padding: 3px 0 3px 16px; position: relative; line-height: 1.5; }
+    .s-items li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: .75rem; top: 4px; }
+    .sessions-note { margin-top: 28px; background: var(--blue-pale); border: 1px solid var(--blue-light); border-radius: var(--radius); padding: 18px 22px; display: flex; align-items: center; gap: 14px; }
+    .sessions-note p { font-size: .9rem; color: var(--navy); line-height: 1.7; }
+
+    /* ========== BEFORE/AFTER ========== */
+    .ba-wrap { background: var(--gray-bg); }
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 44px; }
+    .ba-card { background: #fff; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: .22s; }
+    .ba-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .ba-before { padding: 26px 28px 20px; background: #F3F5FA; min-height: 100px; }
+    .ba-after  { padding: 26px 28px 28px; background: var(--navy); min-height: 110px; }
+    .ba-lbl { font-size: .72rem; font-weight: 800; letter-spacing: .12em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .ba-before .ba-lbl { color: var(--gray-text); }
+    .ba-after  .ba-lbl { color: var(--blue-light); }
+    .ba-txt { font-size: 1rem; line-height: 1.7; }
+    .ba-before .ba-txt { color: #6b7490; }
+    .ba-after  .ba-txt { color: #fff; font-weight: 700; }
+    .ba-mid { text-align: center; background: #fff; padding: 8px 0; }
+    .ba-mid svg { color: var(--blue); }
+    @media (max-width: 640px) { .ba-grid { grid-template-columns: 1fr; } }
+
+    /* ========== SKILLS ========== */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 18px; margin-top: 44px; }
+    .sk-card { background: #fff; border-radius: var(--radius); padding: 26px 22px; box-shadow: var(--shadow-sm); border: 1.5px solid var(--gray-border); transition: .22s; display: flex; gap: 18px; align-items: flex-start; }
+    .sk-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-2px); }
+    .sk-icon { width: 50px; height: 50px; background: var(--blue-pale); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .sk-body strong { display: block; font-size: .97rem; font-weight: 900; color: var(--navy); margin-bottom: 5px; }
+    .sk-body p { font-size: .86rem; color: var(--gray-text); line-height: 1.7; }
+
+    /* ========== WEBINAR ========== */
+    .webinar-wrap { background: var(--blue-bg); }
+    .webinar-card { background: #fff; border-radius: 20px; box-shadow: var(--shadow-lg); overflow: hidden; max-width: 860px; margin: 44px auto 0; }
+    .webinar-head { background: var(--navy); padding: 36px 44px; }
+    .webinar-head h3 { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .webinar-head p { color: rgba(255,255,255,.72); font-size: .93rem; }
+    .webinar-body { padding: 36px 44px; }
+    .webinar-body h4 { font-size: .95rem; font-weight: 800; color: var(--navy); margin-bottom: 18px; }
+    .date-list { display: flex; flex-direction: column; gap: 12px; }
+    .date-row { display: flex; align-items: center; gap: 16px; background: var(--blue-pale); border: 1.5px solid var(--blue-light); border-radius: 12px; padding: 16px 22px; text-decoration: none; transition: .2s; }
+    .date-row:hover { background: var(--blue-bg); border-color: var(--blue); }
+    .date-row.active { border-color: var(--blue); background: #fff; box-shadow: 0 3px 16px rgba(41,182,246,.18); }
+    .date-row.coming { opacity: .55; cursor: default; pointer-events: none; background: #f5f7fb; border-color: var(--gray-border); }
+    .dr-date { font-weight: 900; color: var(--navy); font-size: 1rem; min-width: 130px; }
+    .dr-time { font-size: .87rem; color: var(--gray-text); flex: 1; }
+    .dr-badge { font-size: .72rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+    .dr-badge.open { background: var(--blue); color: #fff; }
+    .dr-badge.soon { background: var(--gray-border); color: var(--gray-text); }
+    .webinar-form-area { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--gray-border); }
+    .webinar-form-area p { font-size: .88rem; color: var(--gray-text); margin-bottom: 14px; }
+    .w-form { display: flex; gap: 10px; flex-wrap: wrap; }
+    .w-form input { flex: 1; min-width: 200px; border: 1.5px solid var(--gray-border); border-radius: 50px; padding: 13px 20px; font-size: .93rem; outline: none; transition: .2s; background: var(--blue-pale); }
+    .w-form input:focus { border-color: var(--blue); background: #fff; }
+
+    /* ========== PRICING ========== */
+    .pricing-wrap { background: #fff; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 44px auto 0; }
+    .price-card { background: #fff; border: 1.5px solid var(--gray-border); border-radius: 20px; padding: 36px 32px; position: relative; transition: .22s; }
+    .price-card:hover { border-color: var(--blue); box-shadow: var(--shadow-lg); }
+    .price-card.featured { border-color: var(--blue); background: var(--blue-bg); box-shadow: 0 6px 32px rgba(41,182,246,.18); }
+    .price-top-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff; font-size: .72rem; font-weight: 800; padding: 5px 16px; border-radius: 20px; white-space: nowrap; letter-spacing: .04em; }
+    .price-plan { font-size: 1rem; font-weight: 900; color: var(--navy); margin-bottom: 4px; }
+    .price-plan-sub { font-size: .84rem; color: var(--gray-text); margin-bottom: 22px; }
+    .price-amount { font-size: 2.4rem; font-weight: 900; color: var(--navy); }
+    .price-amount span { font-size: 1rem; font-weight: 400; color: var(--gray-text); }
+    .price-tax { font-size: .78rem; color: var(--gray-text); margin-bottom: 24px; }
+    .price-features { list-style: none; margin-bottom: 28px; }
+    .price-features li { font-size: .89rem; color: var(--gray-text); padding: 8px 0 8px 22px; position: relative; border-bottom: 1px solid var(--gray-border); }
+    .price-features li::before { content: '✓'; position: absolute; left: 0; color: var(--blue); font-weight: 900; }
+    .price-actions { display: flex; flex-direction: column; gap: 10px; }
+    .btn-price { display: flex; align-items: center; justify-content: center; gap: 7px; border-radius: 50px; padding: 13px 18px; font-size: .9rem; font-weight: 800; text-decoration: none; cursor: pointer; transition: .22s; border: none; }
+    .btn-price.women { background: var(--pink); color: #fff; }
+    .btn-price.women:hover { background: #6A4D91; transform: translateY(-1px); }
+    .btn-price.general { background: var(--blue); color: #fff; }
+    .btn-price.general:hover { background: #1da8e2; transform: translateY(-1px); }
+    .btn-price.reskill { background: transparent; color: var(--gray-text); border: 1.5px solid var(--gray-border); font-size: .82rem; }
+    .btn-price.reskill:hover { border-color: var(--blue); color: var(--blue); }
+    .pricing-note { max-width: 900px; margin: 24px auto 0; background: var(--blue-pale); border-radius: var(--radius); padding: 18px 24px; font-size: .88rem; color: var(--gray-text); line-height: 1.8; border: 1px solid var(--blue-light); }
+    .pricing-note strong { color: var(--navy); }
+
+    /* ========== VOICE / PHOTO STRIP ========== */
+    .photo-strip { background: var(--gray-bg); }
+    .photo-strip-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 44px; }
+    .voice-card { background: #fff; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: .22s; }
+    .voice-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .voice-photo { aspect-ratio: 4/3; }
+    .voice-photo .photo-block { width: 100%; height: 100%; border-radius: 0; border: none; background: linear-gradient(135deg, var(--blue-pale), #c8eaf9); }
+    .voice-body { padding: 20px 20px 22px; }
+    .voice-body .v-tag { font-size: .7rem; font-weight: 800; color: var(--blue); letter-spacing: .06em; margin-bottom: 8px; }
+    .voice-body .v-quote { font-size: .93rem; color: var(--navy); font-weight: 700; line-height: 1.55; margin-bottom: 8px; }
+    .voice-body .v-name { font-size: .8rem; color: var(--gray-text); }
+
+    /* ========== FAQ ========== */
+    .faq-list { max-width: 760px; margin: 44px auto 0; display: flex; flex-direction: column; gap: 10px; }
+    details { background: #fff; border-radius: var(--radius); border: 1.5px solid var(--gray-border); overflow: hidden; transition: .2s; }
+    details:hover { border-color: var(--blue-light); }
+    summary { padding: 18px 22px; font-weight: 700; font-size: .95rem; color: var(--navy); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    summary::after { content: '＋'; font-size: 1.1rem; color: var(--blue); flex-shrink: 0; }
+    details[open] summary::after { content: '－'; }
+    details[open] { border-color: var(--blue); box-shadow: var(--shadow-sm); }
+    .faq-body { padding: 0 22px 18px; color: var(--gray-text); font-size: .9rem; line-height: 1.9; border-top: 1px solid var(--gray-border); padding-top: 14px; }
+
+    /* ========== CTA FINAL ========== */
+    .cta-final { background: var(--navy); text-align: center; }
+    .cta-final h2 { font-size: clamp(1.3rem,2.5vw,1.9rem); font-weight: 900; color: #fff; margin-bottom: 14px; line-height: 1.5; }
+    .cta-final p { color: rgba(255,255,255,.72); margin-bottom: 36px; font-size: .97rem; line-height: 1.85; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .cta-btns { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-bottom: 52px; }
+    .cta-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; padding-top: 36px; border-top: 1px solid rgba(255,255,255,.12); }
+    .cta-stat { text-align: center; }
+    .cta-stat-num { font-size: 1.8rem; font-weight: 900; color: var(--blue-light); }
+    .cta-stat-label { font-size: .78rem; color: rgba(255,255,255,.55); margin-top: 2px; }
+
+    /* ========== FOOTER ========== */
+    footer { background: #060d1c; color: rgba(255,255,255,.45); padding: 36px 24px; text-align: center; }
+    .footer-links { display: flex; gap: 22px; justify-content: center; margin-bottom: 18px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .83rem; transition: .18s; }
+    .footer-links a:hover { color: var(--blue-light); }
+
+    /* ========== STICKY BAR (mobile) ========== */
+    .sticky-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 99; background: #fff; border-top: 1px solid var(--gray-border); padding: 10px 14px; box-shadow: 0 -4px 16px rgba(13,35,86,.1); }
+    @media (max-width: 768px) {
+      .sticky-bar { display: flex; gap: 8px; }
+      .sticky-bar a { flex: 1; text-align: center; padding: 13px 8px; font-size: .86rem; font-weight: 800; border-radius: 50px; text-decoration: none; }
+      .sticky-bar a.sw { background: #7B5EA7; color: #fff; }
+      .sticky-bar a.sg { background: var(--blue); color: #fff; }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .hero::before { left: 50%; }
+      .why-inner { grid-template-columns: 1fr; }
+      .why-photo { max-width: 500px; }
+      .mission-top { grid-template-columns: 1fr; gap: 32px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .mission-classes { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      header .btn-nav-ghost { display: none; }
+      .hero::before { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-float-badge, .hero-float-badge2 { display: none; }
+      .mission-photo-row { grid-template-columns: 1fr 1fr; }
+      .mission-photo-row img:nth-child(3) { display: none; }
+      .photo-strip-grid { grid-template-columns: 1fr 1fr; }
+      .photo-strip-grid .voice-card:nth-child(3) { display: none; }
+    }
+    @media (max-width: 520px) {
+      section { padding: 60px 18px; }
+      .photo-strip-grid { grid-template-columns: 1fr; }
+      .photo-strip-grid .voice-card:nth-child(3) { display: block; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .webinar-head, .webinar-body { padding: 24px; }
+    }
+
+    /* ========== FADE IN ========== */
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a class="logo" href="#">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M3 15L7 5l3 6 3-6 4 10" stroke="#4FC3F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    WAKE <span style="color:var(--blue);font-weight:900;margin-left:2px;">ハイクラスアカデミー</span>
+    <span class="logo-badge">NEW</span>
+  </a>
+  <nav class="header-nav">
+    <a href="#webinar" class="btn-nav-ghost">無料体験に参加</a>
+    <a href="#pricing" class="btn-nav-fill">講座を見る</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <!-- Text -->
+    <div>
+      <div class="hero-tag">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6 3.5V6l1.5 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        2026年5月 2期生開講！
+      </div>
+      <h1><em>IT経験を最大の武器に、</em><br>ハイクラスアカデミーで<br><em>PMやFDE</em>に越境する。</h1>
+      <div class="bar"></div>
+      <p class="hero-sub"><strong>AI活用・解決力・意思決定を学び、実装を超えて活躍する力を。</strong></p>
+      <p class="hero-sub-note">性別問わず、誰もが心理的安全性高く学べる環境をご用意しています。</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          講座を見る
+        </a>
+        <a href="#webinar" class="btn-outline">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="2.5" width="13" height="10" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 6l4 1.5L6 9V6z" fill="currentColor"/></svg>
+          無料の体験日程を選ぶ
+        </a>
+      </div>
+    </div>
+    <!-- Visual -->
+    <div class="hero-visual">
+      <div class="hero-main-photo">
+        <img src="メインビジュアル.png" alt="メインビジュアル" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+      </div>
+      <div class="hero-float-badge fade-in">
+        <div class="hf-icon">🎓</div>
+        <div>
+          <div class="hf-label">受講生満足度</div>
+          <div class="hf-val">4.8 / 5.0</div>
+        </div>
+      </div>
+      <div class="hero-float-badge2 fade-in">全8回 <span>オンライン完結</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL<div class="scroll-dot"></div></div>
+</section>
+
+<!-- ===== PROBLEM ===== -->
+<section class="problem-wrap">
+  <div class="container">
+    <div class="tc">
+      <span class="section-eyebrow">PROBLEM</span>
+      <h2 class="section-title">こんなお悩み、<em>ありませんか？</em></h2>
+      <div class="bar center"></div>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card fade-in">
+        <div class="p-photo">
+          <img src="エンジニアがPCに向かい考え込む写真.png" alt="エンジニアがPCに向かい考え込む" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="p-body">
+          <strong>実装はできるけど…</strong>
+          <p>要件定義や上流工程には、<br>まだ自分には早いと感じてしまう</p>
+        </div>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="p-photo">
+          <img src="AIと人が並ぶ概念イメージ写真.png" alt="AIと人が並ぶ概念イメージ" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="p-body">
+          <strong>AIに仕事を奪われそう</strong>
+          <p>AIによって自分のスキルが長続きするかどうか不安を感じている</p>
+        </div>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="p-photo">
+          <img src="ホワイトボードに図を書くエンジニアの写真.png" alt="ホワイトボードに図を書くエンジニア" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="p-body">
+          <strong>Howに意識が向いてしまう</strong>
+          <p>実装方法を考えるあまり、<br>本当のボトルネックを見落としてしまう</p>
+        </div>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="p-photo">
+          <img src="会議室でプレゼンを聞くエンジニアの写真.png" alt="会議室でプレゼンを聞くエンジニア" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="p-body">
+          <strong>PMへの越境に迷っている</strong>
+          <p>プロジェクトの意思決定に関わりたいが、<br>どこから始めればいいかわからない</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY NOW ===== -->
+<section>
+  <div class="container">
+    <div class="why-inner">
+      <div class="why-photo fade-in">
+        <img src="AI✕エンジニアイメージ写真.png" alt="AI×エンジニアイメージ" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+      </div>
+      <div>
+        <span class="section-eyebrow">WHY NOW</span>
+        <h2 class="section-title">AIに任せられる領域が広がる中、<br>人間に求められるのは<em>"考える力"と"動かす力"。</em></h2>
+        <div class="bar"></div>
+        <p class="section-lead" style="margin-bottom:28px;">ハイクラスアカデミーはここを強化します。</p>
+        <div class="why-points">
+          <div class="why-point fade-in">
+            <div class="why-point-num">01</div>
+            <div class="why-point-body">
+              <strong>考える力 — 課題を構造化する</strong>
+              <p>真のボトルネックを見つけ、<br>解決すべき要件を定義できるようになる</p>
+            </div>
+          </div>
+          <div class="why-point fade-in">
+            <div class="why-point-num">02</div>
+            <div class="why-point-body">
+              <strong>動かす力 — ステークホルダーを巻き込む</strong>
+              <p>合意形成し、<br>AIを活用しながら改善を推進していける</p>
+            </div>
+          </div>
+          <div class="why-point fade-in">
+            <div class="why-point-num">03</div>
+            <div class="why-point-body">
+              <strong>心理的安全性の高い環境</strong>
+              <p>性別・役割の思い込みに関係なく、<br>純粋なスキルと実践力で評価される場</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOR WHO ===== -->
+<section class="problem-wrap">
+  <div class="container">
+    <div class="tc">
+      <span class="section-eyebrow">FOR YOU</span>
+      <h2 class="section-title">こんな<em>エンジニア</em>のために</h2>
+      <div class="bar center"></div>
+      <p class="section-lead">AI時代に必要な"次の力"を身につけたいエンジニアの方</p>
+    </div>
+    <div class="for-who-grid" style="margin-top:44px;">
+      <div class="fw-card fade-in">
+        <div class="fw-icon-wrap">
+          <img src="女性アイコン1.png" alt="女性アイコン" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+          <span class="fw-card-label">FOR ENGINEERS</span>
+        </div>
+        <p>ユーザーの課題を起点に、<br><strong>設計・提案できるようになりたい</strong>方</p>
+      </div>
+      <div class="fw-card fade-in">
+        <div class="fw-icon-wrap">
+          <img src="男性アイコン1.png" alt="男性アイコン" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+          <span class="fw-card-label">FOR ENGINEERS</span>
+        </div>
+        <p>プロジェクトの意思決定に関わる<strong>PMや、<br>AI時代にFDEに挑戦したい</strong>方</p>
+      </div>
+      <div class="fw-card fade-in">
+        <div class="fw-icon-wrap">
+          <img src="女性アイコン2.png" alt="女性アイコン" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+          <span class="fw-card-label">FOR ENGINEERS</span>
+        </div>
+        <p>キャリアの"次の一手"を探している、<br><strong>2〜5年目のエンジニア</strong>の方</p>
+      </div>
+      <div class="fw-card fade-in">
+        <div class="fw-icon-wrap">
+          <img src="男性アイコン2.png" alt="男性アイコン" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+          <span class="fw-card-label">FOR ENGINEERS</span>
+        </div>
+        <p>実装経験を活かし、<br><strong>上流工程・ビジネス側へ越境</strong>していきたい方</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MISSION ===== -->
+<section class="mission-wrap" id="mission">
+  <div class="container mission-inner">
+    <div class="tc" style="margin-bottom:48px;">
+      <span class="section-eyebrow">OUR MISSION</span>
+      <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.3rem);">「やってみたい」を<em>「やれた、次もやれる！」</em>に変えていく。</h2>
+      <div class="bar center"></div>
+    </div>
+
+    <!-- Quote block -->
+    <div class="mission-quote-block fade-in">
+      <p class="mq">「AIを牽引する側が特定の属性に偏ってしまうと、<br>生み出されるシステムや事業の意思決定にも<em>無意識のバイアスが生まれてしまう。</em>」</p>
+    </div>
+
+    <!-- Photo + Text -->
+    <div class="mission-top">
+      <div class="mission-photo fade-in">
+        <img src="チームワーク・対話・イメージ写真.png" alt="チームワーク・対話イメージ" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+      </div>
+      <div class="mission-text">
+        <p>WAKE Careerはこれまで、<br>「女性たちが一段上のキャリアに踏み出せるように<br>チャレンジを後押ししたい」<br>という想いから、伴走支援を続けてきました。</p>
+        <p>生成AIやエージェント技術は、<br>これからの開発現場で必須になる領域です。<br>しかし、新しい分野に踏み出すとき、<br>女性エンジニアが少数派になりがちな現状では、挑戦をためらう場面がまだ多くあります。</p>
+        <p>このフェアな環境を実現するため、<br>WAKE Careerはこれまで行ってきた女性エンジニアへの支援は今後も変わらず続けながら、新たにすべての性別のエンジニアへの支援へと枠組みを広げる決断をしました。</p>
+        <p><span style="font-size:1.1rem;font-weight:900;color:var(--navy);background:linear-gradient(transparent 58%,rgba(41,182,246,.3) 58%);display:inline;line-height:1.8;">「WAKE Careerだからこその心理的安全性の高い環境」</span>で、<br>性別や役割の思い込みに関係なく、<br>純粋なスキルと実践力で評価される社会を作っていきたいと考えています。</p>
+        <p>誰もが安心して挑戦できる場づくりの理念に共感いただける方であれば、すべてのエンジニアのご参加を心より歓迎します。</p>
+        <p style="font-weight:800;color:var(--navy);margin-top:8px;">あなたの「次のチャレンジ」を、ここから一緒に始めましょう！</p>
+      </div>
+    </div>
+
+    <!-- photo -->
+    <div class="fade-in" style="margin-bottom:44px;">
+      <img src="受講生コミュニティ写真.png" alt="受講生コミュニティ" style="width:100%;height:260px;object-fit:cover;object-position:top;border-radius:14px;">
+    </div>
+
+    <!-- Class cards -->
+    <div class="mission-classes">
+      <div class="mc-card fade-in">
+        <h4><span class="badge-women">女性限定</span> 女性限定クラス</h4>
+        <p>女性同士のフラットな対話を通じて、キャリアの悩みも共有しながら安心して学べるクラスです。同じ悩みをもつ仲間同士で進めていけます。</p>
+      </div>
+      <div class="mc-card fade-in">
+        <h4><span class="badge-all">一般</span> 一般クラス</h4>
+        <p>性別を問わず、多様な視点を持つエンジニアとともに学ぶクラスです。様々なバックグラウンドを持つ仲間との対話が、より深い学びを生みます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SESSIONS ===== -->
+<section class="sessions-wrap" id="curriculum">
+  <div class="container">
+    <span class="section-eyebrow">CURRICULUM</span>
+    <h2 class="section-title">全8回の<em>カリキュラム</em></h2>
+    <div class="bar"></div>
+    <p class="section-lead" style="margin-bottom:28px;">WAKE ハイクラスアカデミー — PM思考とFDE実践を学ぶ8週間 —</p>
+    <div class="sessions-meta">
+      <div class="s-meta-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="var(--blue)" stroke-width="1.4"/><path d="M8 5v3l2 1" stroke="var(--blue)" stroke-width="1.4" stroke-linecap="round"/></svg>
+        全8回 週1開催
+      </div>
+      <div class="s-meta-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="12" rx="2" stroke="var(--blue)" stroke-width="1.4"/><path d="M5 7l3 2 3-3" stroke="var(--blue)" stroke-width="1.4" stroke-linecap="round"/></svg>
+        オンライン完結
+      </div>
+      <div class="s-meta-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.8 6.5H14L10.4 9.2l1.4 4.8L8 11.4 4.2 14l1.4-4.8L2 6.5h4.2z" stroke="var(--blue)" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        技術コンテンツ 両コース視聴可
+      </div>
+    </div>
+    <div class="sessions-grid">
+      <div class="s-card fade-in"><div class="s-num">SESSION 01</div><div class="s-title">PMとFDEの役割を理解する<br>― 上流工程と業務改善の全体像</div><ul class="s-items"><li>PMとは何か</li><li>FDEとは何か</li><li>0→1だけでなく既存改善にも必要な視点</li><li>テーマ設定</li></ul></div>
+      <div class="s-card fade-in"><div class="s-num">SESSION 02</div><div class="s-title">ユーザー課題と現場を理解する<br>― ユーザー理解と業務フロー整理</div><ul class="s-items"><li>利用者 / 関係者の整理</li><li>業務フロー可視化</li><li>課題の抽出</li><li>ヒアリング設計</li></ul></div>
+      <div class="s-card fade-in"><div class="s-num">SESSION 03</div><div class="s-title">課題を構造化する<br>― 業務分解とボトルネック特定</div><ul class="s-items"><li>ヒアリング結果整理</li><li>表層課題と構造課題</li><li>どこで詰まるか</li><li>どこにAIや仕組み化が効くか</li></ul></div>
+      <div class="s-card fade-in"><div class="s-num">SESSION 04</div><div class="s-title">解決方針を決める<br>― 業務・運用・プロダクト改善の選択</div><ul class="s-items"><li>何を変えるべきか</li><li>AIに任せる部分</li><li>人が担う部分</li><li>優先順位づけ</li></ul></div>
+      <div class="s-card fade-in"><div class="s-num">SESSION 05</div><div class="s-title">偏りなく課題を見る<br>― ジェンダード・イノベーションとバイアス</div><ul class="s-items"><li>課題の見落とし</li><li>誰の不便が無視されやすいか</li><li>フェアな設計視点</li></ul></div>
+      <div class="s-card fade-in"><div class="s-num">SESSION 06</div><div class="s-title">改善案を仕様に落とす<br>― 要件定義と業務設計</div><ul class="s-items"><li>改善要件・運用要件</li><li>「最小改善単位」の考え方</li><li>導入ステップ設計</li></ul></div>
+      <div class="s-card fade-in"><div class="s-num">SESSION 07</div><div class="s-title">導入を進める<br>― 合意形成・リーダーシップ・改善推進</div><ul class="s-items"><li>ステークホルダー整理</li><li>反対への向き合い方</li><li>小さく始めて改善する進め方</li></ul></div>
+      <div class="s-card fade-in"><div class="s-num">SESSION 08</div><div class="s-title">改善提案を発表する<br>― 最終プレゼン</div><ul class="s-items"><li>現状課題・構造課題</li><li>改善案 & AI/人の役割分担</li><li>導入計画・期待効果</li></ul></div>
+    </div>
+    <div class="sessions-note fade-in">
+      <span style="font-size:1.6rem;">💡</span>
+      <p>技術コンテンツの視聴は<strong>女性限定・一般コースどちらでも</strong>ご確認いただけます。<br>各セッションの実践ワークを通じ、現場ですぐに活かせる力を身につけます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEFORE / AFTER ===== -->
+<section class="ba-wrap">
+  <div class="container">
+    <div class="tc">
+      <span class="section-eyebrow">TRANSFORMATION</span>
+      <h2 class="section-title">受講前と<em>受講後</em>の変化</h2>
+      <div class="bar center"></div>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card fade-in">
+        <div class="ba-before"><div class="ba-lbl">BEFORE</div><div class="ba-txt">PMや上流工程なんて、<br>まだ自分には早いと思っている…</div></div>
+        <div class="ba-mid"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ba-after"><div class="ba-lbl">AFTER</div><div class="ba-txt">AIを使いこなし、<br>自信を持って上流工程をリードできる</div></div>
+      </div>
+      <div class="ba-card fade-in">
+        <div class="ba-before"><div class="ba-lbl">BEFORE</div><div class="ba-txt">AIによって自分のスキルが長続きするか不安</div></div>
+        <div class="ba-mid"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ba-after"><div class="ba-lbl">AFTER</div><div class="ba-txt">実装知識を活かし、<br>AIと仕様を定義するPM・FDEに</div></div>
+      </div>
+      <div class="ba-card fade-in">
+        <div class="ba-before"><div class="ba-lbl">BEFORE</div><div class="ba-txt">上流工程は責任が重いと挑戦を避けている</div></div>
+        <div class="ba-mid"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ba-after"><div class="ba-lbl">AFTER</div><div class="ba-txt">AIを駆使しスムーズな意思決定が身についている</div></div>
+      </div>
+      <div class="ba-card fade-in">
+        <div class="ba-before"><div class="ba-lbl">BEFORE</div><div class="ba-txt">Howの方に意識が向いてしまい、本当のボトルネックを<br>見落としてしまう</div></div>
+        <div class="ba-mid"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ba-after"><div class="ba-lbl">AFTER</div><div class="ba-txt">事業のボトルネックを特定し、解決に導くことができる</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section>
+  <div class="container">
+    <div class="tc">
+      <span class="section-eyebrow">SKILLS</span>
+      <h2 class="section-title">身につく<em>6つの力</em></h2>
+      <div class="bar center"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="sk-card fade-in"><div class="sk-icon">🎯</div><div class="sk-body"><strong>PM/FDEマインド</strong><p>言われた仕様を作るのではなく、現場の業務フローを深く理解し、<br>自ら課題を見つける視点を持つ</p></div></div>
+      <div class="sk-card fade-in"><div class="sk-icon">🤖</div><div class="sk-body"><strong>AIも用いた要件定義力</strong><p>どう作るかではなく、AIを用いて現状から理想を描き、<br>解決すべき要件を定義できるようになる</p></div></div>
+      <div class="sk-card fade-in"><div class="sk-icon">🔍</div><div class="sk-body"><strong>ヒアリング・構造化力</strong><p>事業の真の課題を特定するため、曖昧な要望を具体的なシステム要件に<br>落とし込むヒアリング姿勢が身につく</p></div></div>
+      <div class="sk-card fade-in"><div class="sk-icon">🤝</div><div class="sk-body"><strong>提案・合意形成力</strong><p>クライアントに対してもAI導入のメリットを論理的に伝え、<br>解決策の合意形成ができる</p></div></div>
+      <div class="sk-card fade-in"><div class="sk-icon">⚡</div><div class="sk-body"><strong>問題解決・意思決定力</strong><p>課題を特定し、今までの経験をもとにどう解決するのかを決める<br>意思決定力を身につけられる</p></div></div>
+      <div class="sk-card fade-in"><div class="sk-icon">🏃</div><div class="sk-body"><strong>実案件での自走力</strong><p>実践的なワークや案件紹介を通じ、<br>個人として継続的に案件を獲得・完遂する力が身につく</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VOICE (受講生の声) ===== -->
+<section class="photo-strip">
+  <div class="container">
+    <div class="tc">
+      <span class="section-eyebrow">VOICE</span>
+      <h2 class="section-title">受講生の<em>声</em></h2>
+      <div class="bar center"></div>
+    </div>
+    <div class="photo-strip-grid">
+      <div class="voice-card fade-in">
+        <div class="voice-photo">
+          <img src="受講生写真.png" alt="受講生写真" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="voice-body">
+          <div class="v-tag">女性限定クラス受講生 / システムエンジニア歴10年以上</div>
+          <div class="v-quote">「作ることに苦手意識があったけど少しずつ間隔が掴めてきた」</div>
+          <div class="v-name">N.M. さん</div>
+        </div>
+      </div>
+      <div class="voice-card fade-in">
+        <div class="voice-photo">
+          <img src="受講生写真2.png" alt="受講生写真" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="voice-body">
+          <div class="v-tag">女性限定クラス受講生 / フロントエンドエンジニア6年</div>
+          <div class="v-quote">「ヒアリングから要件定義まで一貫して学べて、PMとしての視点が身についた」</div>
+          <div class="v-name">O.A. さん</div>
+        </div>
+      </div>
+      <div class="voice-card fade-in">
+        <div class="voice-photo">
+          <img src="受講生写真3.png" alt="受講生写真" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="voice-body">
+          <div class="v-tag">女性限定クラス受講生 / ウェブ制作3年</div>
+          <div class="v-quote">「上流工程に苦手意識があったけど、実務に即した構造で学べて自信がついた」</div>
+          <div class="v-name">M.A. さん</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WEBINAR ===== -->
+<section class="webinar-wrap" id="webinar">
+  <div class="container">
+    <div class="tc" style="margin-bottom:44px;">
+      <span class="section-eyebrow">FREE TRIAL</span>
+      <h2 class="section-title">まずは<em>無料体験</em>から</h2>
+      <div class="bar center"></div>
+      <p class="section-lead">ウェビナーで講座の雰囲気・内容を体験できます。下記より日程をお選びください。</p>
+    </div>
+    <div class="webinar-card">
+      <div class="webinar-head">
+        <h3>🎥 無料体験ウェビナー</h3>
+        <p>PM/FDEへのキャリア転換を考えているエンジニアのための60分体験セッション</p>
+      </div>
+      <div class="webinar-body">
+        <h4>体験日程を選ぶ</h4>
+        <div class="date-list">
+          <!-- 4/17: ACTIVE → connpass link -->
+          <a href="https://wake-career.connpass.com/event/389596/" target="_blank" rel="noopener" class="date-row active">
+            <div class="dr-date">4月17日（木）</div>
+            <div class="dr-time">19:00 〜 20:00</div>
+            <span class="dr-badge open">申込受付中</span>
+          </a>
+          <!-- 4/27: coming soon -->
+          <div class="date-row coming">
+            <div class="dr-date">4月27日（日）</div>
+            <div class="dr-time">19:00 〜 20:00</div>
+            <span class="dr-badge soon">準備中</span>
+          </div>
+          <!-- 5/8: coming soon -->
+          <div class="date-row coming">
+            <div class="dr-date">5月8日（木）</div>
+            <div class="dr-time">19:00 〜 20:00</div>
+            <span class="dr-badge soon">準備中</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:0 44px 36px;">
+        <a href="https://wake-career.connpass.com/event/389596/" target="_blank" rel="noopener" class="btn-primary btn-blue" style="width:100%;justify-content:center;font-size:1rem;">4/17（木）のウェビナーに無料で参加する →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing-wrap" id="pricing">
+  <div class="container">
+    <div class="tc">
+      <span class="section-eyebrow">PRICING</span>
+      <h2 class="section-title">講座プランを<em>選ぶ</em></h2>
+      <div class="bar center"></div>
+      <p class="section-lead">受講スタイルに合わせて2つのプランをご用意しています</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Plan A -->
+      <div class="price-card fade-in">
+        <div class="price-plan">オンデマンド + 1on1</div>
+        <div class="price-plan-sub">自分のペースで学び、個別サポートを受けたい方に</div>
+        <div class="price-amount">¥110,000<span> 税込</span></div>
+        <div class="price-tax">分割払い対応可</div>
+        <ul class="price-features">
+          <li>全8回オンデマンド動画視聴</li>
+          <li>技術コンテンツ閲覧（両コース）</li>
+          <li>1on1メンタリングセッション</li>
+          <li>課題フィードバック</li>
+          <li>受講生コミュニティ参加</li>
+        </ul>
+        <div class="price-actions">
+          <a href="https://forms.gle/vUiUcUBZu2AkVJgx7" target="_blank" rel="noopener" class="btn-price women">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="7.5" r="3.5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4V1.5M5 2.5h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            女性限定コースで申し込む
+          </a>
+          <a href="https://forms.gle/vUiUcUBZu2AkVJgx7" target="_blank" rel="noopener" class="btn-price general">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4.5" r="2.8" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 12c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            一般コースで申し込む
+          </a>
+          <a href="reskill.html" class="btn-price reskill">リスキリング補助金で申し込む →</a>
+        </div>
+      </div>
+      <!-- Plan B -->
+      <div class="price-card featured fade-in">
+        <div class="price-top-badge">おすすめ</div>
+        <div class="price-plan">オンデマンド + 週1ワークショップ</div>
+        <div class="price-plan-sub">仲間と一緒に実践的に学びたい方に</div>
+        <div class="price-amount">¥165,000<span> 税込</span></div>
+        <div class="price-tax">分割払い対応可</div>
+        <ul class="price-features">
+          <li>全8回オンデマンド動画視聴</li>
+          <li>技術コンテンツ閲覧（両コース）</li>
+          <li>週1回ライブワークショップ（全8回）</li>
+          <li>グループワーク・ディスカッション</li>
+          <li>1on1メンタリングセッション</li>
+          <li>課題フィードバック</li>
+          <li>受講生コミュニティ参加</li>
+          <li>最終プレゼン発表会参加権</li>
+        </ul>
+        <div class="price-actions">
+          <a href="https://forms.gle/vUiUcUBZu2AkVJgx7" target="_blank" rel="noopener" class="btn-price women">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="7.5" r="3.5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4V1.5M5 2.5h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            女性限定コースで申し込む
+          </a>
+          <a href="https://forms.gle/vUiUcUBZu2AkVJgx7" target="_blank" rel="noopener" class="btn-price general">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4.5" r="2.8" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 12c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            一般コースで申し込む
+          </a>
+          <a href="reskill.html" class="btn-price reskill">リスキリング補助金で申し込む →</a>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-note fade-in">
+      <strong>💰 補助金・リスキリング支援について</strong><br>
+      本講座はリスキリング補助金をご利用いただける場合があります。<a href="reskill.html" style="color:var(--navy);font-weight:700;">補助金の詳細・対象者・割引後の金額はこちら →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="problem-wrap">
+  <div class="container">
+    <div class="tc">
+      <span class="section-eyebrow">FAQ</span>
+      <h2 class="section-title">よくある<em>ご質問</em></h2>
+      <div class="bar center"></div>
+    </div>
+    <div class="faq-list">
+      <details><summary>プログラミング経験がないと受講できませんか？</summary><div class="faq-body">本講座はエンジニア経験2〜5年目の方を対象としています。実装経験をお持ちの方が上流工程へ越境するためのプログラムのため、基礎的な開発経験があることを前提としています。</div></details>
+      <details><summary>女性限定コースと一般コースで学べる内容は同じですか？</summary><div class="faq-body">カリキュラム内容・技術コンテンツは同一です。違いはコミュニティ・ワークショップの参加メンバー構成です。女性限定コースは女性のみ、一般コースは性別を問わず参加できます。</div></details>
+      <details><summary>オンデマンド動画はいつまで視聴できますか？</summary><div class="faq-body">受講期間終了後も一定期間（目安：6ヶ月）視聴可能です。詳細は受講開始時にご案内します。</div></details>
+      <details><summary>働きながら受講できますか？</summary><div class="faq-body">はい、フルタイムで働きながら受講されている方が多くいらっしゃいます。オンデマンドプランは自分のペースで学習でき、週1ワークショップは夜間・休日に開催します。</div></details>
+      <details><summary>リスキリング補助金はどのように利用できますか？</summary><div class="faq-body">申し込みフォーム内でリスキリング補助金申込を選択いただくと、担当者よりご案内いたします。補助金の利用条件や申請方法については個別にご説明します。</div></details>
+      <details><summary>途中でコース（女性限定／一般）を変更できますか？</summary><div class="faq-body">受講開始後のコース変更は原則として受け付けておりませんが、受講前であれば変更可能です。お早めにお問い合わせください。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="cta-final" id="apply">
+  <div class="container">
+    <h2>あなたの「次のチャレンジ」を、<br>ここから一緒に始めましょう。</h2>
+    <p>まずは無料体験ウェビナーから。あなたのペースで、安心して踏み出せます。</p>
+    <div class="cta-btns">
+      <a href="https://wake-career.connpass.com/event/389596/" target="_blank" rel="noopener" class="btn-primary btn-blue" style="min-width:260px;font-size:1rem;">
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><rect x="1" y="3" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 7l4 1.5-4 1.5V7z" fill="currentColor"/></svg>
+        無料体験ウェビナーに参加する
+      </a>
+      <a href="#pricing" class="btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4);min-width:200px;">
+        講座プランを見る →
+      </a>
+    </div>
+    <div class="cta-stats">
+      <div class="cta-stat"><div class="cta-stat-num">4.8</div><div class="cta-stat-label">受講生満足度</div></div>
+      <div class="cta-stat"><div class="cta-stat-num">8週間</div><div class="cta-stat-label">集中プログラム</div></div>
+      <div class="cta-stat"><div class="cta-stat-num">100%</div><div class="cta-stat-label">オンライン受講可</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-links">
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">特定商取引法に基づく表記</a>
+    <a href="#">利用規約</a>
+    <a href="#">お問い合わせ</a>
+    <a href="#">補助金利用について</a>
+  </div>
+  <div style="font-size:.78rem;">© 2025 WAKE Career, Inc. All rights reserved.</div>
+</footer>
+
+<!-- ===== MOBILE STICKY ===== -->
+<div class="sticky-bar">
+  <a href="https://forms.gle/vUiUcUBZu2AkVJgx7" target="_blank" rel="noopener" class="sw">女性限定で申し込む</a>
+  <a href="https://forms.gle/vUiUcUBZu2AkVJgx7" target="_blank" rel="noopener" class="sg">一般コースで申し込む</a>
+</div>
+
+<script>
+  // Fade in on scroll
+  const faders = document.querySelectorAll('.fade-in');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  faders.forEach(el => io.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
